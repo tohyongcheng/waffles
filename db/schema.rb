@@ -41,16 +41,17 @@ ActiveRecord::Schema.define(version: 20141114070228) do
   end
 
   create_table "customers", force: true do |t|
-    t.string   "full_name"
-    t.string   "username"
-    t.string   "unique"
-    t.string   "password"
+    t.string   "full_name",   null: false
+    t.string   "username",    null: false
+    t.string   "password",    null: false
     t.string   "credit_card"
     t.string   "address"
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "customers", ["username"], name: "index_customers_on_username", unique: true
 
   create_table "line_items", force: true do |t|
     t.integer  "order_id"
