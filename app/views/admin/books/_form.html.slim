@@ -1,6 +1,7 @@
 =simple_form_for [:admin, @book] do |f|
   = f.input :title
   = f.association :authors, label_method: :full_name, multiple: true
+  = f.association :publisher, label_method: :name
   = f.input :isbn10
   = f.input :isbn13
   = f.input :price

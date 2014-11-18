@@ -1,5 +1,5 @@
 class Admin::BooksController < Admin::AdminController
-  
+
   before_filter :load_book, except: [:index, :new, :create]
   def new
     @book = Book.new
@@ -33,6 +33,6 @@ class Admin::BooksController < Admin::AdminController
   end
 
   def book_params
-    params.require(:book).permit(:title, :price, :isbn10, :isbn13, :copies, :author_ids => [])
+    params.require(:book).permit(:title, :price, :isbn10, :isbn13, :copies, :publisher_id, :author_ids => [])
   end
 end
