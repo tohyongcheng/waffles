@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :books
   namespace :admin do
     root to: 'admin#index'
+    resources :authors
     resources :books
   end
   # The priority is based upon order of creation: first created -> highest priority.

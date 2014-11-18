@@ -6,6 +6,7 @@ h1 Books
 table.table
 	tr
 		th Title
+		th Author(s)
 		th ISBN10
 		th ISBN13
 		th Price
@@ -13,6 +14,7 @@ table.table
 	- @books.each do |book|
 		tr
 			td = link_to book.title, edit_admin_book_path(book)
+			td = book.authors_list
 			td = book.isbn10
 			td = book.isbn13
 			td = book.price

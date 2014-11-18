@@ -1,12 +1,12 @@
 class Admin::BooksController < Admin::AdminController
-  http_basic_authenticate_with name: "admin", password: "admin", except: [:index, :show]
-
+  
   before_filter :load_book, except: [:index, :new, :create]
   def new
     @book = Book.new
   end
 
   def create
+    p book_params
     @book = Book.create book_params
     redirect_to admin_root_path
   end
@@ -33,6 +33,6 @@ class Admin::BooksController < Admin::AdminController
   end
 
   def book_params
-    params.require(:book).permit(:title, :price, :isbn10, :isbn13, :copies, :author_ids)
+    params.require(:book).permit(:title, :price, :isbn10, :isbn13, :copies, :author_ids => [])
   end
 end
