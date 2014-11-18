@@ -6,4 +6,8 @@ module ApplicationHelper
 	def login(customer)
 		session[:customer_id] = customer.id
 	end
+
+  def logout
+    session[:customer_id] = nil
+  end
 end

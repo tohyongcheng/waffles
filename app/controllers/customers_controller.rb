@@ -1,10 +1,19 @@
 class CustomersController < ApplicationController
+
+
 	def new
 		@customer = Customer.new
 	end
 
 	def create
-		@customer = Customer.create(user_params)
+		if params[:customer][:password] == params[:customer][:password_confirmation]
+			p "ok"
+			@customer = Customer.create(user_params)
+			login @customer
+		else
+			p "no okay"
+			flash[:error] = "you got blue waffles!!!! OMG"
+		end
 		redirect_to root_path
 	end
 

@@ -3,8 +3,11 @@ Rails.application.routes.draw do
 
   resources :books
   resources :customers
+
   post 'login' => 'sessions#create'
   get "login" => "sessions#new"
+  get 'logout' => "sessions#destroy"
+
   namespace :admin do
     root to: 'admin#index'
     resources :authors

@@ -4,15 +4,17 @@ header.navbar
 			.navbar-brand Blue Waffles
 		.navbar-collapse.collapse
 			ul.nav.navbar-nav
-				li 
+				li
 					=link_to "New Arrivals", books_path
-				li 
+				li
 					=link_to "Best Sellers", books_path
 
 			ul.nav.navbar-nav.navbar-right
 				-if current_user.present?
 					li
-						=current_user.full_name
+						= link_to current_user.full_name, "#"
+					li
+						= link_to "Sign Out", logout_path()
 				-else
 					li
 						=link_to "Sign in", login_path
