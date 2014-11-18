@@ -4,3 +4,11 @@ p ISBN10: #{@book.isbn10}
 p ISBN13: #{@book.isbn13}
 p Price: #{@book.price}
 p Stock: #{@book.copies}
+
+
+h4 Add Item
+= simple_form_for @line_item, url: book_add_to_order_path(@book.id) do |f|
+  / = f.input :book_id, as: :hidden, :input_html => { value: @book.id }
+  = f.input :quantity
+
+  = f.submit

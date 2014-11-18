@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   root 'books#index'
 
-  resources :books
+  resources :books do
+    post 'add_to_order'
+  end
   resources :customers
+  resources :orders
 
   post 'login' => 'sessions#create'
   get "login" => "sessions#new"
@@ -12,6 +15,7 @@ Rails.application.routes.draw do
     root to: 'admin#index'
     resources :authors
     resources :books
+    resources :publishers
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -10,9 +10,11 @@ header.navbar
 					=link_to "Best Sellers", books_path
 
 			ul.nav.navbar-nav.navbar-right
-				-if current_user.present?
+				-if current_customer.present?
 					li
-						= link_to current_user.full_name, "#"
+						= link_to current_customer.full_name, customer_path(current_customer)
+					li
+						= link_to "Orders", orders_path
 					li
 						= link_to "Sign Out", logout_path()
 				-else

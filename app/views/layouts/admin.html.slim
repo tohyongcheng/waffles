@@ -6,6 +6,17 @@ html
     = csrf_meta_tags
 
   body
-  	.container
-    	h1 Blue waffle admin page
-    	= yield
+    .container
+      h1 Blue Waffles Admin Dashboard
+      h3 Welcome Admin
+
+      = link_to "New book", new_admin_book_path, class: "btn btn-info", style:"margin-right: 10px;"
+      = link_to "New author", new_admin_author_path, class: "btn btn-info ", style:"margin-right: 10px;"
+      = link_to "New publisher", new_admin_publisher_path, class: "btn btn-info ", style:"margin-right: 10px;"
+
+      = link_to "View Books", admin_root_path, class: "btn btn-default", style:"margin-right: 10px;"
+      = link_to "View Authors", admin_authors_path, class: "btn btn-default", style:"margin-right: 10px;"
+      = link_to "View Publishers", admin_publishers_path, class: "btn btn-default", style:"margin-right: 10px;"
+
+      = yield
+

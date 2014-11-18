@@ -1,0 +1,9 @@
+h1 Authors
+table.table
+  tr
+    th Name
+    th
+  - @authors.each do |a|
+    tr
+      td = a.full_name
+      td = link_to "edit", edit_admin_author_path(a)

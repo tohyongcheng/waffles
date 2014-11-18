@@ -1,0 +1,11 @@
+h1 Orders
+table.table
+  tr
+    th No.
+    th Book
+    th Quantity
+  - @line_items.each_with_index do |item,i|
+    tr
+      td = i+1
+      td = link_to item.book.title, book_path(item.book)
+      td = item.quantity

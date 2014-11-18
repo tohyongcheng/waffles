@@ -1,0 +1,9 @@
+h1 Publishers
+table.table
+  tr
+    th Name
+    th
+  - @publishers.each do |p|
+    tr
+      td = p.name
+      td = link_to "edit", edit_admin_publisher_path(p)

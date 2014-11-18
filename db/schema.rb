@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20141114070228) do
   end
 
   create_table "orders", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "customer_id"
     t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
