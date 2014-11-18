@@ -1,0 +1,17 @@
+- if flash[:notice].present?
+  .alert.alert-success role="alert"
+    button.close type="button" data-dismiss="alert"
+      span aria-hidden="true"
+        |&times;
+      span.sr-only Close
+    strong = "Success! "
+    = flash[:notice]
+
+- if flash[:error].present?
+  .alert.alert-danger
+    button.close type="button" data-dismiss="alert"
+      span aria-hidden="true"
+        |&times;
+      span.sr-only Close
+    strong ="Oh no! "
+    = flash[:error]
