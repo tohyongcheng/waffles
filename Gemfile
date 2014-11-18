@@ -12,6 +12,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'spring',        group: :development
 gem 'simple_form'
+gem 'simple_form_bootstrap3'
 gem 'slim-rails'
 
 #gem 'bcrypt', '~> 3.1.7'

@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   root 'books#index'
 
   resources :books
+  resources :customers
+  post 'login' => 'sessions#create'
+  get "login" => "sessions#new"
   namespace :admin do
     root to: 'admin#index'
     resources :authors
