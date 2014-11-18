@@ -6,6 +6,7 @@ table.table
     th Quantity
     th Unit Price
     th Item Subtotal
+  - total = 0
   - @line_items.each_with_index do |item,i|
     tr
       td = i+1
@@ -13,3 +14,12 @@ table.table
       td = item.quantity
       td = number_to_currency(item.book.price)
       td = number_to_currency(item.book.price * item.quantity)
+      - total += item.book.price * item.quantity
+
+  tr.success
+    td
+    td
+    td
+    td
+      strong Total
+    td = number_to_currency(total)
