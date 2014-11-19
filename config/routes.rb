@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   get "login" => "sessions#new"
   get 'logout' => "sessions#destroy"
+  get 'vote' => 'opinions#vote'
 
+  resources :opinions, only: :create
   namespace :admin do
     root to: 'admin#index'
     resources :authors

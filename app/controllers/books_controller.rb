@@ -1,4 +1,5 @@
 class BooksController < ApplicationController
+  include BooksHelper
   before_filter :load_book, except: [:index, :new, :create, :add_to_order]
 
   def index
@@ -7,6 +8,7 @@ class BooksController < ApplicationController
 
   def show
     @line_item = LineItem.new
+    @opinion = Opinion.new
   end
 
   def add_to_order

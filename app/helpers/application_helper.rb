@@ -18,4 +18,8 @@ module ApplicationHelper
   def logout
     session[:customer_id] = nil
   end
+
+  def short_time(string)
+    Time.at(string).to_formatted_s(:short)
+  end
 end
