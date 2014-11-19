@@ -1,4 +1,11 @@
 h1 Books
+
+h2 Recommendations
+ol
+  - @recommendations.each do |book|
+  	li=link_to book.title, book
+
+h2 All Books
 ol
   - @books.each do |book|
     li= link_to book.title, book
