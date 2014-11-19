@@ -2,7 +2,7 @@ class OpinionsController < ApplicationController
 
   def create
     @opinion = Opinion.new(opinion_params)
-    current_user.opinions << @opinion
+    current_customer.opinions << @opinion
     if @opinion.save
       redirect_to book_path(id: @opinion.book_id)
     else
