@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20141114070228) do
     t.integer  "publisher_id"
     t.date     "publication_date"
     t.integer  "copies"
-    t.integer  "price"
+    t.decimal  "price"
     t.string   "format"
     t.datetime "created_at"
     t.datetime "updated_at"

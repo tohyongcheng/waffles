@@ -7,7 +7,7 @@ class CreateBooks < ActiveRecord::Migration
       t.integer :publisher_id
       t.date    :publication_date
       t.integer :copies
-      t.integer :price
+      t.decimal :price
       t.string  :format #constraint hard/softcover
       #has many subjects, keywords, author
       t.timestamps
