@@ -13,3 +13,34 @@ h4 Add Item
   = f.input :quantity
 
   = f.submit
+
+ul.list-group
+-@book.opinions.each do |o|
+  li.list-group-item
+    b #{o.customer.full_name} 
+    div
+      = raw opinion_score(o.score)
+    small style="font-size:8px;" = short_time(o.created_at)
+    span.pull-right votes: #{o.usefulness.round(2)}
+    -if o.customer.id != current_customer.id and not o.has_customer_rated?(current_customer) 
+      .btn-group.btn-group-xs.pull-right role="group"
+        = link_to "Not Useful", vote_path(rating: 0, opinion: o.id), class: "btn btn-default"
+        = link_to "Useful", vote_path(rating: 1, opinion: o.id), class: "btn btn-default"
+        = link_to "Very Useful", vote_path(rating: 2, opinion: o.id), class: "btn btn-default"
+    br
+    = o.content
+
+br
+-if current_customer.present?
+  = simple_form_for @opinion do |f|
+    =f.hidden_field :book_id, value: @book.id
+    =f.input :content, label:"Opinion"
+    =f.input :score, collection: 0..10
+    br
+    =f.submit "Comment",class: "btn btn-default pull-right"
+-else
+  span Please 
+  =link_to "log in", login_path
+  span  or 
+  =link_to "sign up", new_customer_path
+  span  to comment

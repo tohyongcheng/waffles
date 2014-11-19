@@ -1,6 +1,7 @@
 class Book < ActiveRecord::Base
   has_and_belongs_to_many :authors
   belongs_to :publisher
+  has_many :opinions
 
   def authors_list
     authors.map {|author| "#{author.full_name}"}.join(',')
