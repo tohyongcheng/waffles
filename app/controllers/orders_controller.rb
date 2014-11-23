@@ -1,6 +1,15 @@
 class OrdersController < ApplicationController
   include ApplicationHelper
 
+  def index
+    if current_customer.present?
+      @orders = current_customer.orders.where(status: 1)
+    else
+      flash[:error] = 'You must be logged in!'
+      redirect_to '/'
+    end
+  end
+
   def cart
     if current_customer.present?
       @line_items = current_order.line_items

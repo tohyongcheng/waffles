@@ -2,6 +2,10 @@ class Order < ActiveRecord::Base
   has_many :line_items
   belongs_to :customer
 
+  def total
+    line_items.each.sum(&:total)
+  end
+
   def add_book(params)
     l = self.line_items.where(book_id: params[:book_id]).first
     if l.nil?

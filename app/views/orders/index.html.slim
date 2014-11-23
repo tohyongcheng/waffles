@@ -1,0 +1,15 @@
+h1 Confirmed Orders
+table.table
+  tr
+    th No.
+    th Order Id
+    th Date
+    th Total
+    th View
+  - @orders.each_with_index do |order,i|
+    tr
+      td = i+1
+      td = order.id
+      td = order.updated_at
+      td = number_to_currency(order.total)
+      td = link_to '+', order_path(order.id)

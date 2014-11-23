@@ -5,4 +5,8 @@ class LineItem < ActiveRecord::Base
   def authors_list
     authors.map {|author| "#{author.full_name}"}.join(',')
   end
+
+  def total
+    book.price * quantity
+  end
 end
