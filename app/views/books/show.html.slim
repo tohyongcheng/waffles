@@ -12,7 +12,7 @@ h4 Add Item
   / = f.input :book_id, as: :hidden, :input_html => { value: @book.id }
   = f.input :quantity
 
-  = f.submit
+  = f.submit 'Add to cart'
 
 ul.list-group
 -@book.opinions.each do |o|

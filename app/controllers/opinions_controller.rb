@@ -6,7 +6,8 @@ class OpinionsController < ApplicationController
     if @opinion.save
       redirect_to book_path(id: @opinion.book_id)
     else
-      flash[:error] = "Something wrong with your opinion"
+      flash[:error] = @opinion.errors.full_messages.to_sentence
+      redirect_to book_path(id: @opinion.book_id)
     end
   end
 

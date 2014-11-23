@@ -3,6 +3,7 @@ class Opinion < ActiveRecord::Base
   belongs_to :customer
   has_many :opinion_ratings
 
+  validate :only_one_opinion, on: :create
 
   def vote_sum
     if opinion_ratings.empty?
@@ -27,5 +28,14 @@ class Opinion < ActiveRecord::Base
 
   def has_customer_rated?(customer)
     customer_ids_who_rated.include?(customer.id)
+  end
+
+  private
+
+  def only_one_opinion
+    book_ids = customer.opinions.map {|o| o.book.id }
+    if book_ids.include? book_id
+      errors.add(:book_id, "can have only one opinion")
+    end
   end
 end
