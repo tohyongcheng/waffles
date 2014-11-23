@@ -1,0 +1,11 @@
+h1 Opinions
+
+-@opinions.each do |o|
+  li.list-group-item
+    b #{o.book.title} 
+    small class="pull-right" style="font-size:10px;" = short_time(o.created_at)
+    div
+      = raw opinion_score(o.score)
+      span.pull-right votes: #{o.usefulness.round(2)}
+    br
+    = o.content

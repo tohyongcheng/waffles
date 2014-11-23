@@ -21,7 +21,11 @@ Rails.application.routes.draw do
   get 'logout' => "sessions#destroy"
   get 'vote' => 'opinions#vote'
 
-  resources :opinions, only: :create
+  resources :opinions, only: [:index, :create] do
+    collection do
+      get 'usefulness'
+    end
+  end
   namespace :admin do
     root to: 'admin#index'
     resources :authors

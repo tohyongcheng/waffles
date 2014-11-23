@@ -1,0 +1,15 @@
+h1 Opinions you found useful
+
+-@opinion_ratings.each do |r|
+  - o = r.opinion
+  -if o.present?
+    li.list-group-item
+      b #{o.book.title} 
+      small class="pull-right" style="font-size:10px;" = short_time(o.created_at)
+      div
+        = raw opinion_score(o.score)
+        div.pull-right
+          p votes: #{o.usefulness.round(2)}  
+          p = "You voted: #{r.rating}"
+      br
+      = o.content

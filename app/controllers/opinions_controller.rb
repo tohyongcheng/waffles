@@ -1,5 +1,11 @@
 class OpinionsController < ApplicationController
 
+  before_filter :authenticate_customer!, only: [:index, :usefulness]
+
+  def index
+    @opinions = current_customer.opinions    
+  end
+
   def create
     @opinion = Opinion.new(opinion_params)
     current_customer.opinions << @opinion
@@ -18,6 +24,10 @@ class OpinionsController < ApplicationController
     @opinion.opinion_ratings << @opinion_rating
     flash[:notice] = "Thanks for voting!"
     redirect_to :back
+  end
+
+  def usefulness
+    @opinion_ratings = current_customer.opinion_ratings
   end
 
   private
