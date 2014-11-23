@@ -5,9 +5,7 @@ module ApplicationHelper
 
   def current_order
     if current_customer.present?
-      Order.find_or_create_by(:customer_id => current_customer.id) do |u|
-        u.status = "incomplete"
-      end
+      current_customer.orders.where(status: 0).first_or_create
     end
   end
 

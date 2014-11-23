@@ -41,7 +41,7 @@ class BooksController < ApplicationController
   def add_to_order
     current_order.add_book(book_id: params[:book_id], quantity: line_item_params[:quantity])
     # LineItem.create(order_id: current_order.id, quantity: line_item_params[:quantity], book_id: params[:book_id])
-    redirect_to orders_path
+    redirect_to cart_orders_path
   end
 
   private

@@ -5,7 +5,16 @@ Rails.application.routes.draw do
     post 'add_to_order'
   end
   resources :customers
-  resources :orders
+
+  resources :orders do
+    collection do
+      get 'cart'
+      put 'checkout'
+    end
+    member do
+      delete 'remove'
+    end
+  end
 
   post 'login' => 'sessions#create'
   get "login" => "sessions#new"

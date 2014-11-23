@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-  has_one :order
+  has_many :orders
   has_many :opinions
   has_many :opinion_ratings
 

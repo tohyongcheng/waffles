@@ -1,4 +1,4 @@
-h1 Orders
+h1 Shopping Cart
 table.table
   tr
     th No.
@@ -6,6 +6,7 @@ table.table
     th Quantity
     th Unit Price
     th Item Subtotal
+    th 
   - total = 0
   - @line_items.each_with_index do |item,i|
     tr
@@ -14,6 +15,7 @@ table.table
       td = item.quantity
       td = number_to_currency(item.book.price)
       td = number_to_currency(item.book.price * item.quantity)
+      td = button_to 'x', remove_order_path(item.id), method: 'delete', class: 'btn btn-link'
       - total += item.book.price * item.quantity
 
   tr.success
@@ -23,3 +25,6 @@ table.table
     td
       strong Total
     td = number_to_currency(total)
+    td
+
+= button_to 'Checkout!', checkout_orders_path, method: 'put'
