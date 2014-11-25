@@ -4,6 +4,7 @@ class Opinion < ActiveRecord::Base
   has_many :opinion_ratings
 
   validate :only_one_opinion, on: :create
+  before_save :default_value
 
   def vote_sum
     if opinion_ratings.empty?
@@ -38,4 +39,9 @@ class Opinion < ActiveRecord::Base
       errors.add(:book_id, "can have only one opinion")
     end
   end
+  
+  def default_value
+    score ||= 0
+  end
+
 end
