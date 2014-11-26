@@ -24,8 +24,10 @@ class Book < ActiveRecord::Base
     Opinion.select('opinions.id, opinions.customer_id, opinions.created_at, opinions.score, opinions.content, full_name, avg(rating) as average').
       joins(:customer).
       joins(:opinion_ratings).
+      joins(:book).
+      where("books.id = #{id}").
       group(:opinion_id).order('average DESC').
-      limit(5)
+      limit(number)
   end
 
 end
