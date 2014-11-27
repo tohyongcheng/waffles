@@ -31,6 +31,7 @@ class OrdersController < ApplicationController
 
   def checkout
     order_id = current_order.id
+    current_order.update_copies
     current_order.update_attributes status: 1
     flash[:notice] = "Successfully Placed Order!"
     redirect_to order_path(order_id)

@@ -18,4 +18,12 @@ class Order < ActiveRecord::Base
     # self.line_items
     # current_order.add_book(book_id: params[:book_id], quantity: line_item_params[:quantity])
   end
+
+  def update_copies
+    self.line_items.each do |li|
+      book = Book.find(li.book_id)
+      book.update_attributes(copies: book.copies-li.quantity)
+    end
+  end
+
 end
