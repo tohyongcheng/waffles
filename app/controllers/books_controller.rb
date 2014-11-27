@@ -64,9 +64,14 @@ class BooksController < ApplicationController
   end
 
   def add_to_order
-    current_order.add_book(book_id: params[:book_id], quantity: line_item_params[:quantity])
+    if line_item_params[:quantity].to_i <= Book.find(params[:book_id]).copies.to_i
+      current_order.add_book(book_id: params[:book_id], quantity: line_item_params[:quantity])
+      redirect_to cart_orders_path
+    else
+      flash[:error] = "You have exceeded the number of avaliable copies."
+      redirect_to :back
+    end
     # LineItem.create(order_id: current_order.id, quantity: line_item_params[:quantity], book_id: params[:book_id])
-    redirect_to cart_orders_path
   end
 
   private
