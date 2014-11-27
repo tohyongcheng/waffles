@@ -23,11 +23,10 @@ class Book < ActiveRecord::Base
     
     Opinion.select('opinions.id, opinions.customer_id, opinions.created_at, opinions.score, opinions.content, full_name, avg(rating) as average').
       joins(:customer).
-      joins(:opinion_ratings).
-      joins(:book).
-      where("books.id = #{id}").
+      joins("LEFT OUTER JOIN opinion_ratings ON opinions.id = opinion_ratings.opinion_id").
+      where(book_id: id).
       group(:opinion_id).order('average DESC').
-      limit(number)
+      limit(5)
   end
 
 end
