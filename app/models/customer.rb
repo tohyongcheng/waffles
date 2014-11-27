@@ -11,4 +11,11 @@ class Customer < ActiveRecord::Base
 			return c
 		end
 	end
+
+  def has_given_opinion(book_id)
+    not Customer.
+      joins(:opinions).
+      where("opinions.book_id" => book_id).
+      empty?
+  end
 end

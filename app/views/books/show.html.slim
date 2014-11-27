@@ -39,12 +39,15 @@ ul.list-group
 
 br
 -if current_customer.present?
-  = simple_form_for @opinion do |f|
-    =f.hidden_field :book_id, value: @book.id
-    =f.input :content, label:"Opinion"
-    =f.input :score, collection: 0..10
-    br
-    =f.submit "Comment",class: "btn btn-default pull-right"
+  -if current_customer.has_given_opinion(@book.id)
+    span You have already given your opinion.
+  -else
+    = simple_form_for @opinion do |f|
+      =f.hidden_field :book_id, value: @book.id
+      =f.input :content, label:"Opinion"
+      =f.input :score, collection: 0..10
+      br
+      =f.submit "Comment",class: "btn btn-default pull-right"
 -else
   span Please 
   =link_to "log in", login_path
