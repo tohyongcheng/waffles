@@ -4,35 +4,40 @@ class Book < ActiveRecord::Base
   has_many :opinions
   attr_accessor :count
 
+  def self.raw_to_books(results)
+    books = []
+    results.each do |r|
+      books << Book.hash_to_book(r)
+    end
+    books
+  end
+
   def self.hash_to_book(book_hash)
     book = Book.new() 
     attrs = book_hash.reject{|k,v| !book.attributes.keys.member?(k.to_s) and k != "count" }
     book.attributes = attrs
-    return book
+    book
   end
 
   def self.best_sellers_this_month(m)
     result = Book.connection.execute("
-      SELECT books.* , SUM(quantity) as count
-      FROM line_items JOIN books JOIN orders
-      WHERE line_items.created_at BETWEEN '#{Time.now.beginning_of_month}' AND '#{Time.now.end_of_month}'
-      AND orders.status = 1
+      SELECT books.*, SUM(quantity) as count FROM (
+        SELECT ALL book_id , quantity
+        FROM line_items 
+        JOIN orders on order_id = orders.id
+        WHERE line_items.created_at BETWEEN '#{Time.now.beginning_of_month}' AND '#{Time.now.end_of_month}'
+        AND orders.status = 1
 
-      UNION
+        UNION ALL
 
-      SELECT *, 0 as count
-      FROM books
-
-      GROUP BY books.id
+        SELECT id as book_id , 0 as quantity FROM books
+      )
+      JOIN books on books.id == book_id
+      GROUP BY book_id
       ORDER BY count DESC
       LIMIT #{m}
-      ")
-
-    books = []
-    result.each do |book_hash|
-      books << Book.hash_to_book(book_hash)
-    end
-    return books
+    ")
+    raw_to_books result
   end
 
 
