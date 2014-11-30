@@ -1,0 +1,9 @@
+h1 Authors
+table.table
+  tr
+    th Name
+    th Books Sold
+  - @authors.each do |a|
+    tr
+      td = a.full_name
+      td = a.count

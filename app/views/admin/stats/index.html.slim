@@ -5,3 +5,9 @@ h4 = "Top #{params[:count]} Selling Books"
   p
     = text_field_tag :count, params[:count]
     = submit_tag "Search", :name => nil
+
+h4 = "Top #{params[:count]} Selling Authors"
+= form_tag authors_admin_stats_path, :method => 'get' do
+  p
+    = text_field_tag :count, params[:count]
+    = submit_tag "Search", :name => nil

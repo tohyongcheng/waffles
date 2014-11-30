@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :stats do
       collection do
         get 'books'
+        get 'authors'
       end
     end
   end
