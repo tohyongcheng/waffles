@@ -25,7 +25,7 @@ class Book < ActiveRecord::Base
         SELECT ALL book_id , quantity
         FROM line_items 
         JOIN orders on order_id = orders.id
-        WHERE line_items.created_at BETWEEN '#{Time.now.beginning_of_month}' AND '#{Time.now.end_of_month}'
+        WHERE line_items.created_at BETWEEN '#{Time.now.beginning_of_month.utc}' AND '#{Time.now.end_of_month.utc}'
         AND orders.status = 1
 
         UNION ALL
