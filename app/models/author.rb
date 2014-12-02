@@ -49,7 +49,6 @@ class Author< ActiveRecord::Base
       LIMIT #{m}
     ")
 
-    print result
     raw_to_authors result
   end
 end

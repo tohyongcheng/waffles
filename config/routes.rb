@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       collection do
         get 'books'
         get 'authors'
+        get 'publishers'
       end
     end
   end
