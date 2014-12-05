@@ -14,4 +14,10 @@ class Admin::StatsController < Admin::AdminController
     @authors = Author.best_sellers_this_month(params[:count])
     render '/admin/stats/authors'
   end
+
+  def publishers
+    params[:count]||= 10
+    @publishers = Publisher.best_sellers_this_month(params[:count])
+    render '/admin/stats/publishers'
+  end
 end
