@@ -43,7 +43,7 @@ class Book < ActiveRecord::Base
       start = true
     end
     result = Book.
-      select('books.title, books.id').
+      select('distinct(books.id), books.title, books.id').
       joins(:publisher).
       joins(:authors).
       joins("LEFT OUTER JOIN books_subjects ON books_subjects.book_id = books.id").

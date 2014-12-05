@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     post 'add_to_order'
     collection do 
       get 'search'
+      get 'search_page'
     end
   end
   resources :customers

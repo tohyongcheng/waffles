@@ -1,4 +1,7 @@
 h2 Search results
 ol
-  - @books.each do |book|
-    li =link_to book.title, book
+  -if @books.present?
+    - @books.each do |book|
+      li =link_to book.title, book
+  - else
+    p "No Matching Results..."

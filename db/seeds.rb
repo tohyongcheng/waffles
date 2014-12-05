@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+p "SEEDING"
 10.times do 
 	Author.create(full_name: Faker::Name.name)
 	Publisher.create(name: Faker::Company.name)
@@ -26,5 +27,9 @@ subjects = %w(Sci-fi, Crime, Philosophy, Computer Science, Teens, Fantasy, Matur
 Book.all.each do |book|
   if book.subjects.empty?
     book.subjects.create(name: subjects.sample)
+  end
+  [0,1,2].sample.times do
+    author = Author.all.sample
+    book.authors << author if not book.authors.include?(author)
   end
 end

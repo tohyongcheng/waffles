@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   include BooksHelper
   include ApplicationHelper
   require 'ostruct'
-  before_filter :load_book, except: [:index, :new, :create, :add_to_order, :search]
+  before_filter :load_book, except: [:index, :new, :create, :add_to_order, :search, :search_page]
 
   def index
     @books = Book.all
@@ -79,6 +79,9 @@ class BooksController < ApplicationController
 queries on the authors, and/or publisher, and/or title, and/or subject. Your system should allow the user to specify that the results are to be sorted a) by year, or b) by the average score of the feedbacks.
 =end
     @books = Book.search(params[:search])
+  end
+
+  def search_page
   end
 
   private
