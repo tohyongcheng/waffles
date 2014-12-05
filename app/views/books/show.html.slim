@@ -6,25 +6,31 @@ p Publisher: #{@book.publisher_name}
 p Price: #{@book.price}
 p Stock: #{@book.copies}
 
-
+br
+hr
+br
 h4 Add Item
 -if current_customer.present?
   = simple_form_for @line_item, url: book_add_to_order_path(@book.id) do |f|
     / = f.input :book_id, as: :hidden, :input_html => { value: @book.id }
-    = f.input :quantity
+    = f.input :quantity, input_html: { value: 1 }
 
     = f.submit 'Add to cart'
 -else
-  span Please 
+  span Please
   =link_to "log in", login_path
-  span  or 
+  span  or
   =link_to "sign up", new_customer_path
   span  to purchase this item
 
+br
+hr
+br
+h4 Opinions
 ul.list-group
 -@book.useful_opinions.each do |o|
   li.list-group-item
-    b #{o.full_name} 
+    b #{o.full_name}
     small style="font-size:8px;" = short_time(o.created_at)
     div
       = raw opinion_score(o.score)
@@ -49,8 +55,8 @@ br
       br
       =f.submit "Comment",class: "btn btn-default pull-right"
 -else
-  span Please 
+  span Please
   =link_to "log in", login_path
-  span  or 
+  span  or
   =link_to "sign up", new_customer_path
   span  to comment or vote on comments
