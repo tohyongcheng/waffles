@@ -18,6 +18,7 @@ class Publisher < ActiveRecord::Base
   end
 
   def self.best_sellers_this_month(m)
+    m = 10 if m == ""
     result = Publisher.connection.execute("
       SELECT publishers.*, SUM(quantity) as count FROM (
         SELECT publisher_id, quantity

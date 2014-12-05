@@ -30,6 +30,7 @@ class Author< ActiveRecord::Base
     #   ORDER BY count DESC
     #   LIMIT #{m}
     # ")
+    m = 10 if m == ""
     result = Author.connection.execute("
       SELECT authors.*, SUM(quantity) as count FROM (
         SELECT ALL author_id, quantity

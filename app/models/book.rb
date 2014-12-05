@@ -53,6 +53,7 @@ class Book < ActiveRecord::Base
   end
 
   def self.best_sellers_this_month(m)
+    m = 10 if m == ""
     result = Book.connection.execute("
       SELECT books.*, SUM(quantity) as count FROM (
         SELECT ALL book_id , quantity

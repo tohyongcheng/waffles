@@ -3,7 +3,7 @@ h2 Shop Statistics
 h4 = "Top #{params[:count]} Selling Books"
 = form_tag books_admin_stats_path, :method => 'get' do
   p
-    = text_field_tag :count, params[:count]
+    = text_field_tag :count, params[:count], placeholder: "5"
     = submit_tag "Search", :name => nil
 
 h4 = "Top #{params[:count]} Selling Authors"
