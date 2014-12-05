@@ -1,25 +1,19 @@
 header.navbar
-	.container
-		.navbar-header
-			.navbar-brand
-				=link_to "Blue Waffles", root_path
-		.navbar-collapse.collapse
-			ul.nav.navbar-nav
-				li
-					=link_to "New Arrivals", books_path
-				li
-					=link_to "Best Sellers", books_path
-
-			ul.nav.navbar-nav.navbar-right
-				-if current_customer.present?
-					li
-						= link_to current_customer.full_name, customer_path(current_customer)
-					li
-						= link_to "Shopping Cart", cart_orders_path
-					li
-						= link_to "Sign Out", logout_path()
-				-else
-					li
-						=link_to "Sign in", login_path
-					li
-						=link_to "Sign up", new_customer_path
+  .container
+    .navbar-header
+      .navbar-brand
+        =link_to "Blue Waffles", root_path
+    .navbar-collapse.collapse
+      ul.nav.navbar-nav.navbar-right
+        -if current_customer.present?
+          li
+            = link_to current_customer.full_name, customer_path(current_customer)
+          li
+            = link_to "Shopping Cart", cart_orders_path
+          li
+            = link_to "Sign Out", logout_path()
+        -else
+          li
+            =link_to "Sign in", login_path
+          li
+            =link_to "Sign up", new_customer_path

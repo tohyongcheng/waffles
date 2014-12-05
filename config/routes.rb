@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   resources :books do
     post 'add_to_order'
+    collection do 
+      get 'search'
+    end
   end
   resources :customers
 

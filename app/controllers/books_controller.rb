@@ -2,11 +2,10 @@ class BooksController < ApplicationController
   include BooksHelper
   include ApplicationHelper
   require 'ostruct'
-  before_filter :load_book, except: [:index, :new, :create, :add_to_order]
+  before_filter :load_book, except: [:index, :new, :create, :add_to_order, :search]
 
   def index
     @books = Book.all
-
     if current_customer.present?
       set_of_books_i_bought = Set.new
       books_bought = current_customer.orders.each do |o|
@@ -72,6 +71,14 @@ class BooksController < ApplicationController
       redirect_to :back
     end
     # LineItem.create(order_id: current_order.id, quantity: line_item_params[:quantity], book_id: params[:book_id])
+  end
+
+  def search
+=begin
+    Users may search for books, by asking conjunctive
+queries on the authors, and/or publisher, and/or title, and/or subject. Your system should allow the user to specify that the results are to be sorted a) by year, or b) by the average score of the feedbacks.
+=end
+    @books = Book.search(params[:search])
   end
 
   private

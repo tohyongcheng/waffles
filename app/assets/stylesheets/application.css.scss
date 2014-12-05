@@ -3,3 +3,60 @@
 
 // And finally bootswatch style itself
 @import "bootswatch/readable/bootswatch";
+
+.toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+.switch {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+input.and-or + label {
+  padding: 2px;
+  width: 50px;
+  height: 30px;
+}
+input.and-or + label:before,
+input.and-or + label:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  line-height: 30px;
+}
+input.and-or + label:before {
+  background-color: #4582ec;
+  content: attr(data-off);
+  transition: transform 0.2s;
+  backface-visibility: hidden;
+}
+input.and-or + label:after {
+  background-color: #8ce196;
+  content: attr(data-on);
+  transition: transform 0.2s;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+input.and-or:checked + label:before {
+  transform: rotateY(180deg);
+}
+input.and-or:checked + label:after {
+  transform: rotateY(0);
+}

@@ -20,6 +20,38 @@ class Book < ActiveRecord::Base
     book
   end
 
+  def self.search(search_params)
+    start = false
+    query = ""
+    if not search_params[:title].empty?
+      query.concat "books.title LIKE '%#{search_params[:title]}%' "
+      start = true
+    end
+    if not search_params[:publisher].empty?
+      concat_conjunctive(query,start,search_params[:and_publisher])
+      query.concat "publishers.name LIKE '%#{search_params[:publisher]}%' "
+      start = true
+    end
+    if not search_params[:author].empty?
+      concat_conjunctive(query,start,search_params[:and_author])
+      query.concat "authors.full_name LIKE '%#{search_params[:author]}%' "
+      start = true
+    end
+    if not search_params[:subject].empty?
+      concat_conjunctive(query,start,search_params[:and_subject])
+      query.concat "subjects.name LIKE '%#{search_params[:subject]}%' "
+      start = true
+    end
+    result = Book.
+      select('books.title, books.id').
+      joins(:publisher).
+      joins(:authors).
+      joins("LEFT OUTER JOIN books_subjects ON books_subjects.book_id = books.id").
+      joins("LEFT OUTER JOIN subjects ON books_subjects.subject_id = subjects.id").
+      where(query)
+    return result
+  end
+
   def self.best_sellers_this_month(m)
     result = Book.connection.execute("
       SELECT books.*, SUM(quantity) as count FROM (
@@ -82,4 +114,15 @@ class Book < ActiveRecord::Base
       limit(5)
   end
 
+  private
+  
+  def self.concat_conjunctive(query, start, and_or_value)
+    if start 
+      if and_or_value == '1'
+        query.concat "and "
+      else
+        query.concat "or "
+      end
+    end
+  end
 end
