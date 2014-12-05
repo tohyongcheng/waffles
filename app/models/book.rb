@@ -2,6 +2,7 @@ class Book < ActiveRecord::Base
   has_and_belongs_to_many :authors
   belongs_to :publisher
   has_many :opinions
+  has_and_belongs_to_many :subjects
   attr_accessor :count
 
   def self.raw_to_books(results)
