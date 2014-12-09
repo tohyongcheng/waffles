@@ -3,7 +3,8 @@ class OrdersController < ApplicationController
 
   def index
     if current_customer.present?
-      @orders = current_customer.orders.where(status: 1)
+      @orders = current_customer.confirmed_orders
+      
     else
       flash[:error] = 'You must be logged in!'
       redirect_to '/'

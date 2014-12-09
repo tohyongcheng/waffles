@@ -6,6 +6,7 @@ h1 Opinions you found useful
     li.list-group-item
       b #{o.book.title} 
       small class="pull-right" style="font-size:10px;" = short_time(o.created_at)
+      p #{o.customer.full_name}
       div
         = raw opinion_score(o.score)
         div.pull-right

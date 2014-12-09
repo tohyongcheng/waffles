@@ -6,6 +6,12 @@ class Opinion < ActiveRecord::Base
   validate :only_one_opinion, on: :create
   before_save :default_value
 
+  include ResultsHelper
+
+  def self.raw_to_opinions(results)
+    ResultsHelper.raw_to_model(results, self.name)
+  end
+
   def vote_sum
     if opinion_ratings.empty?
       return 0

@@ -20,4 +20,31 @@ class Customer < ActiveRecord::Base
     ")
     result.count != 0
   end
+
+  def confirmed_orders
+    results = Order.connection.execute"SELECT orders.* FROM orders 
+      JOIN customers on orders.customer_id = customers.id
+      WHERE customer_id = #{id}
+      AND orders.status = 1
+    "
+    Order.raw_to_orders(results)
+  end
+
+  def all_opinions
+    results = Opinion.connection.execute"SELECT opinions.* FROM opinions 
+      JOIN customers on opinions.customer_id = customers.id
+      WHERE customer_id = #{id}
+    "
+    Opinion.raw_to_opinions(results)
+  end
+
+  def feedback
+    results = OpinionRating.connection.execute "
+      SELECT opinion_ratings.* FROM opinions
+      JOIN opinion_ratings ON opinion_ratings.opinion_id = opinions.id
+      WHERE opinion_ratings.customer_id = #{id}
+      ORDER BY opinion_ratings.rating DESC
+    "
+    OpinionRating.raw_to_opinion_ratings(results)
+  end
 end

@@ -3,7 +3,7 @@ class OpinionsController < ApplicationController
   before_filter :authenticate_customer!, only: [:index, :usefulness]
 
   def index
-    @opinions = current_customer.opinions    
+    @opinions = current_customer.all_opinions    
   end
 
   def create
@@ -27,7 +27,7 @@ class OpinionsController < ApplicationController
   end
 
   def usefulness
-    @opinion_ratings = current_customer.opinion_ratings
+    @opinion_ratings = current_customer.feedback
   end
 
   private

@@ -1,6 +1,11 @@
 class Order < ActiveRecord::Base
   has_many :line_items
   belongs_to :customer
+  include ResultsHelper
+
+  def self.raw_to_orders(results)
+    ResultsHelper.raw_to_model(results, self.name)
+  end
 
   def total
     line_items.each.sum(&:total)
