@@ -23,7 +23,13 @@ publishers.each do |p|
   end
 end
 
+10.times do
+  Customer.create(username: Faker::Internet.user_name, password: "123", full_name: Faker::Name.name)
+end
+
 subjects = %w(Sci-fi, Crime, Philosophy, Computer Science, Teens, Fantasy, Mature)
+opinions = %w(WORST, BAD, OKAY, GOOD, BEST) 
+
 Book.all.each do |book|
   if book.subjects.empty?
     book.subjects.create(name: subjects.sample)
@@ -32,4 +38,8 @@ Book.all.each do |book|
     author = Author.all.sample
     book.authors << author if not book.authors.include?(author)
   end
+  number = [0..9].sample % 5
+  opinion = Customer.all.sample.opinions.create(content: opinions[number], rating: number)
+  book.opinions << opinion
+  book.save
 end

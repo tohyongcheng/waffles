@@ -1,19 +1,19 @@
 h2 Search
 = simple_form_for :search, url: search_books_path, method: :get do |f|
-  = f.input :title
+  = f.input :title, required: false
   .switch
     = f.check_box :and_publisher, class: "toggle and-or", id: "and_publisher"
     label for="and_publisher" data-on="and" data-off="or"
-  = f.input :publisher
+  = f.input :publisher, required: false
 
   .switch
     = f.check_box :and_author, class: "toggle and-or", id: "and_author"
     label for="and_author" data-on="and" data-off="or"
-  = f.input :author
+  = f.input :author, required: false
 
   .switch
     = f.check_box :and_subject, class: "toggle and-or", id: "and_subject"
     label for="and_subject" data-on="and" data-off="or"
-  = f.input :subject
+  = f.input :subject, required: false
   br
   = f.submit :search, class: "btn btn-primary"
