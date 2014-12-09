@@ -56,7 +56,7 @@ class Book < ActiveRecord::Base
     m = 10 if m == ""
     result = Book.connection.execute("
       SELECT books.*, SUM(quantity) as count FROM (
-        SELECT ALL book_id , quantity
+        SELECT book_id , quantity
         FROM line_items 
         JOIN orders on order_id = orders.id
         WHERE line_items.created_at BETWEEN '#{Time.now.beginning_of_month.utc}' AND '#{Time.now.end_of_month.utc}'
