@@ -97,8 +97,8 @@ class Book < ActiveRecord::Base
     return 0
   end
 
-  def useful_opinions(number: 5)
-
+  def useful_opinions(number)
+    number = 5 if number == ""
     # SELECT  opinions.id, opinions.customer_id, opinions.created_at, opinions.score, opinions.content, full_name, avg(rating) as average 
     # FROM "opinions" 
     # INNER JOIN "customers" ON "customers"."id" = "opinions"."customer_id" 
@@ -112,7 +112,7 @@ class Book < ActiveRecord::Base
       joins("LEFT OUTER JOIN opinion_ratings ON opinions.id = opinion_ratings.opinion_id").
       where(book_id: id).
       group(:opinion_id).order('average DESC').
-      limit(5)
+      limit(number)
   end
 
   private

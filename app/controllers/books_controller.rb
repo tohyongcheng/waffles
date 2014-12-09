@@ -60,6 +60,7 @@ class BooksController < ApplicationController
   def show
     @line_item = LineItem.new
     @opinion = Opinion.new
+    @useful_opinions = @book.useful_opinions(params[:limit][:limit])
   end
 
   def add_to_order

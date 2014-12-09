@@ -28,7 +28,10 @@ hr
 br
 h4 Opinions
 ul.list-group
--@book.useful_opinions.each do |o|
+=simple_form_for :limit,url: book_path(@book.id), method: :get do |f|
+  =f.label "Number of opinions", required: false
+  =f.input_field :limit
+-@useful_opinions.each do |o|
   li.list-group-item
     b #{o.full_name}
     small style="font-size:8px;" = short_time(o.created_at)
