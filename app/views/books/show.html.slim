@@ -30,7 +30,7 @@ h4 Opinions
 ul.list-group
 =simple_form_for :opinions, url: book_path(@book.id), method: :get do |f|
   =f.label "Number of opinions", required: false
-  =f.input_field :limit, value: params[:opinions].try(:[],:limit)||5
+  =f.input_field :limit, value: params[:opinions].try(:[],:limit)
   -if @useful_opinions == []
     -@opinions.each do |o|
       li.list-group-item
