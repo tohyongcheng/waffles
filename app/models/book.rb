@@ -98,7 +98,6 @@ class Book < ActiveRecord::Base
   end
 
   def useful_opinions(number)
-    number = 5 if number == ""
     # SELECT  opinions.id, opinions.customer_id, opinions.created_at, opinions.score, opinions.content, full_name, avg(rating) as average 
     # FROM "opinions" 
     # INNER JOIN "customers" ON "customers"."id" = "opinions"."customer_id" 
