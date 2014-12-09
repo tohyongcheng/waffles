@@ -13,9 +13,11 @@ class Customer < ActiveRecord::Base
 	end
 
   def has_given_opinion(book_id)
-    not Customer.
-      joins(:opinions).
-      where("opinions.book_id" => book_id).
-      empty?
+    result = ActiveRecord::Base.connection.execute("
+      SELECT * FROM opinions
+      WHERE opinions.book_id = #{book_id}
+      AND opinions.customer_id = #{self.id}
+    ")
+    result.count != 0
   end
 end

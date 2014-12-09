@@ -65,15 +65,14 @@ class Book < ActiveRecord::Base
         UNION ALL
 
         SELECT id as book_id , 0 as quantity FROM books
-      )
-      JOIN books on books.id == book_id
-      GROUP BY book_id
+      ) as temp
+      JOIN books on books.id = book_id
+      GROUP BY books.id
       ORDER BY count DESC
       LIMIT #{m}
     ")
     raw_to_books result
   end
-
 
   def authors_list
     authors.map {|author| "#{author.full_name}"}.join(',')
@@ -98,19 +97,13 @@ class Book < ActiveRecord::Base
   end
 
   def useful_opinions(number)
-    # SELECT  opinions.id, opinions.customer_id, opinions.created_at, opinions.score, opinions.content, full_name, avg(rating) as average 
-    # FROM "opinions" 
-    # INNER JOIN "customers" ON "customers"."id" = "opinions"."customer_id" 
-    # INNER JOIN "opinion_ratings" ON "opinion_ratings"."opinion_id" = "opinions"."id"
-    # GROUP BY opinion_id  
-    # ORDER BY average DESC 
-    # LIMIT 5
+    number = 5 if number == ""
     
-    Opinion.select('opinions.id, opinions.customer_id, opinions.created_at, opinions.score, opinions.content, full_name, avg(rating) as average').
+    Opinion.select('opinions.*, avg(rating) as average').
       joins(:customer).
       joins("LEFT OUTER JOIN opinion_ratings ON opinions.id = opinion_ratings.opinion_id").
       where(book_id: id).
-      group(:opinion_id).order('average DESC').
+      group('opinions.id').order('average DESC').
       limit(number)
   end
 

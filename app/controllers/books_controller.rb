@@ -8,7 +8,7 @@ class BooksController < ApplicationController
     @books = Book.all
     if current_customer.present?
       set_of_books_i_bought = Set.new
-      books_bought = current_customer.orders.each do |o|
+      current_customer.orders.each do |o|
         o.line_items.each do |li|
           set_of_books_i_bought.add(li.book_id)
         end
@@ -16,9 +16,13 @@ class BooksController < ApplicationController
 
 
       book_tuple = "(" + set_of_books_i_bought.to_a.join(",") + ")"
+      if book_tuple == "()"
+        @recommendations = []
+        return
+      end
       @recommendations = ActiveRecord::Base.connection.execute("
 
-        SELECT *, SUM(quantity) AS count
+        SELECT books.*, SUM(quantity) AS count
         FROM line_items
         JOIN books ON book_id = books.id
         JOIN orders ON order_id = orders.id
@@ -28,28 +32,10 @@ class BooksController < ApplicationController
           WHERE book_id IN #{book_tuple}
           AND customer_id <> #{current_customer.id})
         AND book_id NOT IN #{book_tuple}
-        GROUP BY book_id
+        GROUP BY books.id
         ORDER BY count DESC
 
         ")
-      # set_of_books_i_bought = Set.new
-      # books_bought = current_order.line_items.each do |li|
-      #   set_of_books_i_bought.add(li.book_id)
-      # end
-      # set_of_books_to_recommend = Set.new
-      # set_of_books_i_bought.each do |book_id|
-      #   order_ids = LineItem.where(book_id: book_id).map { |l| l.order_id }
-      #   order_ids.each do |id|
-      #     o = Order.find(id)
-      #     o.line_items.each do |line_item|
-      #       set_of_books_to_recommend.add(line_item.book_id)
-      #     end
-      #   end
-      # end
-
-      # recommendations_id = set_of_books_to_recommend - set_of_books_i_bought
-
-      # @recommendations = Book.where(id: recommendations_id.to_a)
     else
       @recommendations = []
     end

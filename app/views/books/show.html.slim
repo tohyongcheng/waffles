@@ -33,7 +33,7 @@ ul.list-group
   =f.input_field :limit, value: params[:opinions].try(:[],:limit)||5
 -@useful_opinions.each do |o|
   li.list-group-item
-    b #{o.full_name}
+    b #{o.customer.full_name}
     small style="font-size:8px;" = short_time(o.created_at)
     div
       = raw opinion_score(o.score)

@@ -16,6 +16,7 @@ gem 'simple_form_bootstrap3'
 gem 'slim-rails'
 gem 'better_errors'
 gem "binding_of_caller"
+gem 'pg'
 
 #gem 'bcrypt', '~> 3.1.7'
 

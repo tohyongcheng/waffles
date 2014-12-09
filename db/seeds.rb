@@ -38,8 +38,8 @@ Book.all.each do |book|
     author = Author.all.sample
     book.authors << author if not book.authors.include?(author)
   end
-  number = [0..9].sample % 5
-  opinion = Customer.all.sample.opinions.create(content: opinions[number], rating: number)
+  number = [0,1,2,3,4,5].sample
+  opinion = Customer.all.sample.opinions.create(content: opinions[number], score: number)
   book.opinions << opinion
   book.save
 end
