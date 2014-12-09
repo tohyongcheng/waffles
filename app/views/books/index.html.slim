@@ -3,7 +3,7 @@ h1 Books
 h2 Recommendations
 ol
   - @recommendations.each do |book|
-  	li=link_to book["title"], book_path(book["book_id"])
+  	li=link_to book["title"], book_path(book["id"])
 
 h2 All Books
 ol

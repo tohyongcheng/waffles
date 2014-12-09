@@ -32,9 +32,9 @@ class Publisher < ActiveRecord::Base
         UNION ALL
 
         SELECT id as publisher_id, 0 as quantity FROM publishers
-      )
+      ) as temp
       JOIN publishers on publisher_id = publishers.id
-      GROUP BY publisher_id
+      GROUP BY publishers.id
       ORDER BY count DESC
       LIMIT #{m}
     ")

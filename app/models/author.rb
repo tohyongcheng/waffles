@@ -43,9 +43,9 @@ class Author< ActiveRecord::Base
         UNION ALL
 
         SELECT id as author_id, 0 as quantity FROM authors
-      )
+      ) as temp
       JOIN authors on author_id = authors.id
-      GROUP BY author_id
+      GROUP BY authors.id
       ORDER BY count DESC
       LIMIT #{m}
     ")

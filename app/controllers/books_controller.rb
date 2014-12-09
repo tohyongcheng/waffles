@@ -14,7 +14,6 @@ class BooksController < ApplicationController
         end
       end
 
-
       book_tuple = "(" + set_of_books_i_bought.to_a.join(",") + ")"
       if book_tuple == "()"
         @recommendations = []
@@ -47,6 +46,7 @@ class BooksController < ApplicationController
     @line_item = LineItem.new
     @opinion = Opinion.new
     @useful_opinions = @book.useful_opinions(params[:opinions].try(:[],:limit))
+    @opinions = @book.all_opinions
   end
 
   def add_to_order
@@ -57,14 +57,9 @@ class BooksController < ApplicationController
       flash[:error] = "You have exceeded the number of avaliable copies."
       redirect_to :back
     end
-    # LineItem.create(order_id: current_order.id, quantity: line_item_params[:quantity], book_id: params[:book_id])
   end
 
   def search
-=begin
-    Users may search for books, by asking conjunctive
-queries on the authors, and/or publisher, and/or title, and/or subject. Your system should allow the user to specify that the results are to be sorted a) by year, or b) by the average score of the feedbacks.
-=end
     @books = Book.search(params[:search])
   end
 
@@ -79,5 +74,4 @@ queries on the authors, and/or publisher, and/or title, and/or subject. Your sys
   def load_book
     @book = Book.find(params[:id])
   end
-
 end

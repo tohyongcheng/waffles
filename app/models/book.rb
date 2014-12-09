@@ -96,10 +96,13 @@ class Book < ActiveRecord::Base
     return 0
   end
 
+  def all_opinions
+    Opinion.select('opinions.*').where(book_id: id) 
+  end
+
   def useful_opinions(number)
     number = 5 if number == ""
-    
-    Opinion.select('opinions.*, avg(rating) as average').
+    Opinion.select('opinions.*, coalesce(avg(rating),0) as average').
       joins(:customer).
       joins("LEFT OUTER JOIN opinion_ratings ON opinions.id = opinion_ratings.opinion_id").
       where(book_id: id).
