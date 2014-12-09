@@ -11,12 +11,10 @@ class CustomersController < ApplicationController
 
 	def create
 		if params[:customer][:password] == params[:customer][:password_confirmation]
-			p "ok"
 			@customer = Customer.create(user_params)
 			login @customer
 		else
-			p "no okay"
-			flash[:error] = "you got blue waffles!!!! OMG"
+			flash[:error] = "There was an error with your account creation"
 		end
 		redirect_to root_path
 	end
