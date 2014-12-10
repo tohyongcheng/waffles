@@ -14,6 +14,11 @@ h2 Search
   .switch
     = f.check_box :and_subject, class: "toggle and-or", id: "and_subject"
     label for="and_subject" data-on="and" data-off="or"
-  = f.input :subject, required: false
+  = f.input :subject, collection: @subjects, required: false
   br
+
+  label Sort By
+  .switch
+    = f.check_box :sort_by, class: "toggle and-or", id: "sort_by"
+    label for="sort_by" data-on="year" data-off="score"
   = f.submit :search, class: "btn btn-primary"

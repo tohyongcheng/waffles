@@ -43,12 +43,15 @@ class Book < ActiveRecord::Base
       start = true
     end
     result = Book.
-      select('distinct(books.id), books.title, books.id').
+      select('distinct(books.id), books.title, books.id, books.publication_date, coalesce(avg(score),0) as average').
       joins(:publisher).
       joins(:authors).
       joins("LEFT OUTER JOIN books_subjects ON books_subjects.book_id = books.id").
       joins("LEFT OUTER JOIN subjects ON books_subjects.subject_id = subjects.id").
-      where(query)
+      joins("LEFT OUTER JOIN opinions ON opinions.book_id = books.id").
+      where(query).
+      group("books.id").
+      order("#{get_order_by_attr(search_params[:sort_by])} DESC")
     return result
   end
 
@@ -112,6 +115,14 @@ class Book < ActiveRecord::Base
 
   private
   
+  def self.get_order_by_attr(sort_by)
+    if sort_by == '0'
+      return 'average'
+    else
+      return 'publication_date'
+    end
+  end
+
   def self.concat_conjunctive(query, start, and_or_value)
     if start 
       if and_or_value == '1'

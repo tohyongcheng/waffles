@@ -64,6 +64,7 @@ class BooksController < ApplicationController
   end
 
   def search_page
+    @subjects = Subject.all.map(&:name).uniq
   end
 
   private
