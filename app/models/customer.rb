@@ -3,6 +3,10 @@ class Customer < ActiveRecord::Base
   has_many :opinions
   has_many :opinion_ratings
 
+  validates_presence_of :username 
+  validates_presence_of :full_name 
+  validates_presence_of :password
+
 	def self.authenticate(params)
 		c = Customer.find_by_username(params[:username])
 		if c.nil? or c.password != params[:password]

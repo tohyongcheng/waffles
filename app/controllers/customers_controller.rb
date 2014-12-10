@@ -12,9 +12,17 @@ class CustomersController < ApplicationController
 	def create
 		if params[:customer][:password] == params[:customer][:password_confirmation]
 			@customer = Customer.create(user_params)
-			login @customer
+      if @customer.save
+			  login @customer
+      else
+        flash[:error] = @customer.errors.full_messages.to_sentence
+        redirect_to new_customer_path
+        return
+      end
 		else
-			flash[:error] = "There was an error with your account creation"
+			flash[:error] = "passwords dont match."
+      redirect_to new_customer_path
+      return
 		end
 		redirect_to root_path
 	end
