@@ -2,9 +2,12 @@
   = f.input :title
   = f.association :authors, label_method: :full_name, multiple: true
   = f.association :publisher, label_method: :name
+  = f.association :subjects, label_method: :name
+  = f.input :publication_date
   = f.input :isbn10
   = f.input :isbn13
   = f.input :price
   = f.input :copies
+  = f.input :format, collection: ['softcover', 'hardcover']
 
   = f.submit

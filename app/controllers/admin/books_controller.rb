@@ -8,7 +8,12 @@ class Admin::BooksController < Admin::AdminController
   def create
     p book_params
     @book = Book.create book_params
-    redirect_to admin_root_path
+    if @book.save
+      flash[:error] = @book.errors.full_messages.to_sentence
+      redirect_to admin_root_path
+    else
+      render :new 
+    end
   end
 
   def index
@@ -33,6 +38,6 @@ class Admin::BooksController < Admin::AdminController
   end
 
   def book_params
-    params.require(:book).permit(:title, :price, :isbn10, :isbn13, :copies, :publisher_id, :author_ids => [])
+    params.require(:book).permit(:title, :publisher_id, :subject_ids, :price, :isbn10, :isbn13, :copies,  :publication_date, :format, :author_ids => [], :subject_ids => [])
   end
 end

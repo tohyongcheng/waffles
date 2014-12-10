@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210103535) do
+ActiveRecord::Schema.define(version: 20141210122615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,14 +31,14 @@ ActiveRecord::Schema.define(version: 20141210103535) do
   add_index "authors_books", ["book_id", "author_id"], name: "index_authors_books_on_book_id_and_author_id", using: :btree
 
   create_table "books", force: true do |t|
-    t.string   "isbn10"
-    t.string   "isbn13"
-    t.string   "title"
-    t.integer  "publisher_id"
-    t.date     "publication_date"
-    t.integer  "copies"
+    t.string   "isbn10",                       null: false
+    t.string   "isbn13",                       null: false
+    t.string   "title",                        null: false
+    t.integer  "publisher_id",                 null: false
+    t.date     "publication_date",             null: false
+    t.integer  "copies",           default: 0, null: false
     t.decimal  "price"
-    t.string   "format"
+    t.string   "format",                       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

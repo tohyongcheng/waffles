@@ -4,6 +4,8 @@ class Book < ActiveRecord::Base
   has_many :opinions
   has_and_belongs_to_many :subjects
   attr_accessor :count
+  validates_presence_of :authors
+  validates_presence_of :subjects
 
   def self.raw_to_books(results)
     books = []
