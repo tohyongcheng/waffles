@@ -50,7 +50,11 @@ class BooksController < ApplicationController
   end
 
   def add_to_order
-    if line_item_params[:quantity].to_i <= Book.find(params[:book_id]).copies.to_i
+    if line_item_params[:quantity].to_i <= 0
+      flash[:error] = "You must add atleast one book!"
+      redirect_to :back
+
+    elsif line_item_params[:quantity].to_i <= Book.find(params[:book_id]).copies.to_i
       current_order.add_book(book_id: params[:book_id], quantity: line_item_params[:quantity])
       redirect_to cart_orders_path
     else
